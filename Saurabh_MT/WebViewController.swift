@@ -7,13 +7,21 @@
 //
 
 import UIKit
+import WebKit
 
-class WebViewController: UIViewController {
-
+class WebViewController: UIViewController,WKNavigationDelegate {
+    var webView: WKWebView!
+    var pageId = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        webView = WKWebView()
+        webView.navigationDelegate = self
+        view = webView
+        var str = "https://en.wikipedia.org/?curid="+String(pageId)
+        let url = URL(string: str)
+        webView.load(URLRequest(url: url!))
+        webView.allowsBackForwardNavigationGestures = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,14 +30,5 @@ class WebViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
